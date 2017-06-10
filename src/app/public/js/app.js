@@ -208,6 +208,9 @@ var app = {
         if (! app.webSocketConnected) {
             app.connectToWebSocketServer();
         }
+		else {
+			app.webSocket.send(JSON.stringify({command: 'ping'}));
+		}
         setTimeout(app.onTimer, 5000);
     }
 };

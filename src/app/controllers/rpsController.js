@@ -11,9 +11,12 @@ class RPSController {
 	}
 
 	onMessage(client, message, app) {
+		if (message.command == 'ping') {
+
+		}
 		if (message.command == 'join') {
 			this.gameController.joinOrCreateGame(client, app)
-				.then((result) => {
+				.then(() => {
 					console.log('User ' + client.player.id + ' joined game.');
 				}).error((err) => {
 				    console.log('Join game failed: ' + err);
@@ -21,19 +24,19 @@ class RPSController {
 		}
 		else if (message.command == 'playMove') {
 			this.gameController.playMove(client, message.move, app)
-				.then((result) => {
+				.then(() => {
 					console.log('User ' + client.player.id + ' played move.');
 				})
-				.error((err) => {
+				.error(() => {
 					console.log('Error playing move.');
 				});
 		}
 		else if (message.command == 'quit') {
 			this.gameController.quitGame(client, app)
-                .then((result) => {
+                .then(() => {
                     console.log('User ' + client.player.id + ' quit game.');
                 })
-				.error((err) => {
+				.error(() => {
 					console.log('Error quiting game.');
 				});
 		}
@@ -49,7 +52,7 @@ class RPSController {
 				this.onMessage(client, JSON.parse(message.utf8Data), app);
 			}
 		});
-		connection.on('close', (reasonCode, description) => {
+		connection.on('close', () => {
 			this.clients.splice(this.clients.indexOf(client), 1);
 			console.log((new Date()) + 'WebSocket client ' + connection.remoteAddress + ' disconnected.');
 		});
