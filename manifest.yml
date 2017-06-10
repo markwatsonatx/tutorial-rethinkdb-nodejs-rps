@@ -1,0 +1,8 @@
+applications:
+- path: ./src/app
+  memory: 256M
+  instances: 1
+  domain: mybluemix.net
+  name: rethinkdb-rps
+  host: rethinkdb-rps
+  disk_quota: 1024M

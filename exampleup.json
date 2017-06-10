@@ -1,0 +1,30 @@
+{
+  "editor" : {
+    "hide": false,
+    "srcDir": "src"
+  },
+  "proxy": {
+    "ports": [
+      {
+        "port": 38080,
+        "hide": false,
+        "name": "RethinkDB",
+        "path": "/"
+      },
+      {
+        "port": 33000,
+        "hide": false,
+        "tabs": [
+          {
+            "name": "Player 1",
+            "path": "/"
+          },
+          {
+            "name": "Player 2",
+            "path": "/"
+          }
+        ]
+      }
+    ]
+  }
+}

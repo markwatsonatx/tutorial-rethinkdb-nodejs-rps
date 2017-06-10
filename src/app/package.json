@@ -1,0 +1,16 @@
+{
+  "name": "tutorial-rethinkdb-nodejs-rps",
+  "version": "0.0.1",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cfenv": "1.0.x",
+    "express": "4.13.x",
+    "node-uuid": "^1.4.7",
+    "nodemon": "^1.9.2",
+    "rethinkdb": "^2.3.2",
+    "websocket": "^1.0.23"
+  }
+}
