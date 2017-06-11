@@ -23,22 +23,35 @@ var app = {
     player2Score: 0,
     myMovesPlayed: 0,
     canPlayMove: false,
-    
+
     sendMessage: function(msg) {
         app.webSocket.send(JSON.stringify(msg));
     },
-    
+
     sendJoinGameCommand : function() {
         app.sendMessage({command: 'join'});
     },
-    
+
     sendPlayMoveCommand : function(move) {
         app.sendMessage({
             command: 'playMove',
             move: move
         });
     },
-    
+
+    initGame: function() {
+		app.mainStatus = 'Joining game...';
+		app.roundStatus = '';
+		app.myScoreText = '';
+		app.otherPlayerScoreText = '';
+		app.round = 0;
+		app.player1 = false;
+		app.player1Score = 0;
+		app.player2Score = 0;
+		app.myMovesPlayed = 0;
+		app.canPlayMove = false;
+    },
+
     quitGame: function() {
         var win = (app.player1 && app.player1Score >= 3) || (! app.player1 && app.player2Score >= 3);
         if (win) {
@@ -48,7 +61,7 @@ var app = {
             app.roundStatus = 'You lose :(';
         }
     },
-    
+
     playMove: function(move) {
         if (app.canPlayMove) {
             app.canPlayMove = false;
@@ -56,7 +69,7 @@ var app = {
             app.sendPlayMoveCommand(move);
         }
     },
-    
+
     getMoveStr: function(move) {
         if (move == ROCK) {
             return "Rock"
@@ -68,7 +81,7 @@ var app = {
             return "Scissors"
         }
     },
-    
+
     processMessage: function(msg) {
         var game = JSON.parse(msg);
         if (game) {
@@ -94,7 +107,7 @@ var app = {
             app.refreshUI();
         }
     },
-    
+
     processRound: function(game) {
         var roundResultPlayer1 = TIE;
         var roundResultPlayer2 = TIE;
@@ -159,7 +172,7 @@ var app = {
         app.myScoreText = 'YOU: ' + myScore;
         app.otherPlayerScoreText = 'PLAYER 2: ' + otherScore;
     },
-    
+
     refreshUI: function() {
         document.getElementById('rock-btn').disabled = ! app.canPlayMove;
         document.getElementById('paper-btn').disabled = ! app.canPlayMove;
@@ -169,27 +182,31 @@ var app = {
         document.getElementById('my-score-span').innerText = app.myScoreText;
         document.getElementById('other-player-score-span').innerText = app.otherPlayerScoreText;
     },
-    
+
     connectToWebSocketServer: function() {
         if ("WebSocket" in window) {
             app.webSocket = new WebSocket('ws://' + window.location.href.split('/')[2]);
             app.webSocket.onopen = function () {
+                console.log("Websocket connected.")
                 app.webSocketConnected = true;
-                app.sendJoinGameCommand();
+				app.sendJoinGameCommand();
             };
             app.webSocket.onmessage = function (evt) {
-                app.webSocketConnected = true;
+				app.webSocketConnected = true;
                 app.processMessage(evt.data);
             };
             app.webSocket.onclose = function () {
-                app.webSocketConnected = false;
+                console.log("Websocket closed.");
+				app.initGame();
+				app.refreshUI();
+				app.webSocketConnected = false;
             };
         }
         else {
             alert("WebSocket not supported browser.");
         }
     },
-    
+
     init: function() {
         document.getElementById('rock-btn').addEventListener('click', function () {
             app.playMove(ROCK);
@@ -201,9 +218,9 @@ var app = {
             app.playMove(SCISSORS);
         });
         app.refreshUI();
-        app.connectToWebSocketServer();
+        app.onTimer();
     },
-    
+
     onTimer: function() {
         if (! app.webSocketConnected) {
             app.connectToWebSocketServer();
