@@ -1,8 +1,14 @@
+declared-services:
+  rethinkdb-rps:
+    label: compose-for-rethinkdb
+    plan: Standard
 applications:
 - path: ./src/app
   memory: 256M
   instances: 1
   domain: mybluemix.net
   name: rethinkdb-rps
-  host: rethinkdb-rps
+  host: rethinkdb-rps-${random-word}
   disk_quota: 1024M
+  services:
+  - rethinkdb-sns
