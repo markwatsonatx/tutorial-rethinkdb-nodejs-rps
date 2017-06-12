@@ -55,7 +55,7 @@ var app = {
     quitGame: function() {
         var win = (app.player1 && app.player1Score >= 3) || (! app.player1 && app.player2Score >= 3);
         if (win) {
-            app.roundStatus = 'You WIN!';
+            app.roundStatus = 'You win!';
         }
         else {
             app.roundStatus = 'You lose :(';
@@ -148,19 +148,19 @@ var app = {
         if (roundResultPlayer1 == WIN) {
             app.player1Score += 1;
             if (app.player1) {
-                app.roundStatus = 'You win round ' + (app.round + 1);
+                app.roundStatus = 'You Win Round ' + (app.round + 1);
             }
             else {
-                app.roundStatus = 'You lose round ' + (app.round + 1);
+                app.roundStatus = 'You Lose Round ' + (app.round + 1);
             }
         }
         else if (roundResultPlayer2 == WIN) {
             app.player2Score += 1;
             if (app.player1) {
-                app.roundStatus = 'You lose round ' + (app.round + 1);
+                app.roundStatus = 'You lose Round ' + (app.round + 1);
             }
             else {
-                app.roundStatus = 'You win round ' + (app.round + 1);
+                app.roundStatus = 'You win Round ' + (app.round + 1);
             }
         }
         else {
@@ -169,8 +169,8 @@ var app = {
         app.round += 1;
         var myScore = app.player1 ? app.player1Score : app.player2Score;
         var otherScore = app.player1 ? app.player2Score : app.player1Score;
-        app.myScoreText = 'YOU: ' + myScore;
-        app.otherPlayerScoreText = 'PLAYER 2: ' + otherScore;
+        app.myScoreText = '' + myScore;
+        app.otherPlayerScoreText = '' + otherScore;
     },
 
     refreshUI: function() {
