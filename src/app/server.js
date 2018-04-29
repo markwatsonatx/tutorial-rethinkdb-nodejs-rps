@@ -26,10 +26,10 @@ const rpsController = new RPSController();
 			console.log(new Date() + ' Connected to RethinkDB.');
 			app.set('rethinkdb-conn', conn);
 			databaseController.createDatabase(conn, config.rethinkdb.db)
-				.then(function() {
+				.then(() => {
 					return databaseController.createTable(conn, 'games');
 				})
-				.catch(function(err) {
+				.catch((err) => {
 					console.log(new Date() + ' Error creating database and/or table: ' + err);
 				});
 		}

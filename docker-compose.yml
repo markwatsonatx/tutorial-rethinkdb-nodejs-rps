@@ -5,7 +5,7 @@ services:
     ports:  
       - "38080:8080"
   web:
-    image: markwatsonatx/node-alpine:latest    
+    image: node:alpine    
     volumes:
       - ./startup:/usr/startup
       - ./src/app:/usr/src/app

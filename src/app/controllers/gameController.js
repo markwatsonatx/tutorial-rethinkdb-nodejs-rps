@@ -2,7 +2,7 @@
 
 const r = require('rethinkdb');
 
-const STATUS_AWAITING_PLAYER_2 = 'Awaiting player 2';
+const STATUS_AWAITING_PLAYER_2 = 'Awaiting opponent';
 
 class GameController {
 
@@ -15,9 +15,9 @@ class GameController {
 		// first we try and update a game that is awating a second player
 		// if the update is successful then we are ready to start the game
 		// if the update fails then we need to create a new game
-		return r.table('games').filter({'status': 'Awaiting player 2'}).limit(1).update((game) => {
+		return r.table('games').filter({'status': 'Awaiting opponent'}).limit(1).update((game) => {
 			return r.branch(
-				game('status').eq('Awaiting player 2'),
+				game('status').eq('Awaiting opponent'),
 				{status: 'Ready', player2: client.player},
 				{}
 			)

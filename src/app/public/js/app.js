@@ -6,7 +6,7 @@ var LOSE = -1;
 var TIE = 0;
 var WIN = 1;
 
-var STATUS_AWAITING_PLAYER_2 = 'Awaiting player 2';
+var STATUS_AWAITING_PLAYER_2 = 'Awaiting opponent';
 var STATUS_READY = 'Ready';
 
 var app = {
