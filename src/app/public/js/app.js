@@ -185,7 +185,7 @@ var app = {
 
     connectToWebSocketServer: function() {
         if ("WebSocket" in window) {
-            app.webSocket = new WebSocket('ws://' + window.location.href.split('/')[2]);
+            app.webSocket = new WebSocket('wss://' + window.location.href.split('/')[2]);
             app.webSocket.onopen = function () {
                 console.log("Websocket connected.")
                 app.webSocketConnected = true;
