@@ -1,0 +1,18 @@
+disabled: false
+metadata:
+  editorTab:
+    hide: false
+    srcDir: "src/app"
+  appTabs:
+  - port: 38080
+    hide: false
+    name: "RethinkDB"
+    path: "/"
+  - port: 33000
+    hide: false
+    name: "Player 1"
+    path: "/"
+  - port: 33000
+    hide: false
+    name: "Player 2"
+    path: "/"
